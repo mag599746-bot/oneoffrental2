@@ -1,0 +1,1233 @@
+﻿<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ONEOFF | Rental Gallery</title>
+  <meta name="description" content="ONEOFF LED 렌탈 갤러리. 행사별 렌탈 사례와 상세 정보를 확인하세요." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --purple-950: #0b1e5b;
+      --purple-900: #102a73;
+      --purple-800: #14318a;
+      --purple-700: #1d4ed8;
+      --purple-600: #2563eb;
+      --purple-500: #3b82f6;
+      --yellow-500: #1d4ed8;
+      --yellow-400: #60a5fa;
+      --yellow-300: #bfdbfe;
+      --ink: #0f172a;
+      --ink-dark: #ffffff;
+      --shadow: 0 24px 60px rgba(15, 23, 42, 0.18);
+      --font-display: "Bebas Neue", "Arial Narrow", sans-serif;
+      --font-body: "Space Grotesk", "Noto Sans KR", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      color: var(--ink);
+      background:
+        radial-gradient(900px 500px at 5% -10%, rgba(29, 78, 216, 0.12), transparent 60%),
+        radial-gradient(900px 600px at 95% -15%, rgba(96, 165, 250, 0.2), transparent 60%),
+        linear-gradient(180deg, #f7f9ff 0%, #eef3ff 100%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    .container {
+      width: min(1200px, 100% - 48px);
+      margin: 0 auto;
+    }
+
+    .site-header .container {
+      width: 100%;
+      margin: 0;
+      padding: 0 24px;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(11, 30, 91, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+      color: #fff;
+    }
+
+    .header__inner {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 18px 0;
+    }
+
+    .header__actions {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 22px;
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .logo img {
+      width: 150px;
+      height: auto;
+      display: block;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      font-weight: 500;
+    }
+
+    .nav a {
+      position: relative;
+      padding-bottom: 4px;
+    }
+
+    .nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 0;
+      height: 2px;
+      background: var(--yellow-500);
+      transition: width 0.3s ease;
+    }
+
+    .nav a:hover::after {
+      width: 100%;
+    }
+
+    .menu-toggle {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px 22px;
+      border-radius: 999px;
+      font-weight: 600;
+      border: 1px solid transparent;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
+    }
+
+    .btn--solid {
+      background: linear-gradient(120deg, var(--yellow-500), var(--yellow-300));
+      color: var(--ink-dark);
+      box-shadow: 0 12px 30px rgba(29, 78, 216, 0.3);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 40px rgba(29, 78, 216, 0.2);
+    }
+
+    .gallery-hero {
+      padding: 110px 0 70px;
+    }
+
+    .gallery-hero__inner {
+      display: grid;
+      gap: 20px;
+    }
+
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      font-size: 12px;
+      color: var(--yellow-400);
+      margin: 0;
+    }
+
+    .gallery-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(44px, 5vw, 76px);
+      margin: 0;
+      letter-spacing: 0.04em;
+    }
+
+    .gallery-hero p {
+      max-width: 640px;
+      margin: 0;
+      color: rgba(15, 23, 42, 0.65);
+    }
+
+    .gallery-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .gallery-nav a {
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: rgba(29, 78, 216, 0.12);
+      border: 1px solid rgba(29, 78, 216, 0.35);
+      font-weight: 600;
+    }
+
+    .gallery-filter {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      padding: 14px;
+      border-radius: 20px;
+      border: 1px solid rgba(29, 78, 216, 0.2);
+      background: #ffffff;
+    }
+
+    .filter-input,
+    .filter-select {
+      border: 1px solid rgba(29, 78, 216, 0.25);
+      background: #ffffff;
+      color: var(--ink);
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      min-width: 220px;
+    }
+
+    .filter-input::placeholder {
+      color: rgba(15, 23, 42, 0.45);
+    }
+
+    .filter-select {
+      min-width: 180px;
+    }
+
+    .filter-button {
+      border: 1px solid rgba(29, 78, 216, 0.35);
+      background: rgba(29, 78, 216, 0.12);
+      color: var(--purple-700);
+      padding: 10px 16px;
+      border-radius: 999px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .filter-hint {
+      font-size: 12px;
+      color: rgba(15, 23, 42, 0.55);
+    }
+
+    .gallery-empty {
+      margin: 0 auto;
+      width: min(1200px, 100% - 48px);
+      padding: 18px 24px;
+      border-radius: 16px;
+      border: 1px dashed rgba(29, 78, 216, 0.35);
+      color: rgba(15, 23, 42, 0.65);
+      background: #ffffff;
+      text-align: center;
+    }
+
+    .section {
+      padding: 80px 0;
+    }
+
+    .section.is-hidden {
+      display: none;
+    }
+
+    .section__head {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .section__head h2 {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 4vw, 56px);
+      margin: 0;
+      letter-spacing: 0.04em;
+    }
+
+    .section__head p {
+      margin: 0;
+      color: rgba(15, 23, 42, 0.65);
+    }
+
+    .gallery-group {
+      display: grid;
+      gap: 14px;
+      margin-bottom: 30px;
+    }
+
+    .gallery-group.is-hidden {
+      display: none;
+    }
+
+    .gallery-group__head {
+      display: grid;
+      gap: 6px;
+    }
+
+    .gallery-group__head h3 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .gallery-group__head p {
+      margin: 0;
+      font-size: 14px;
+      color: rgba(15, 23, 42, 0.6);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .gallery-grid[data-grid-type="대표시안"] {
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    }
+
+    .gallery-grid[data-grid-type="대표시안"] .gallery-item__media {
+      height: 600px;
+    }
+
+    .gallery-item {
+      background: #ffffff;
+      border: 1px solid rgba(29, 78, 216, 0.2);
+      border-radius: 20px;
+      overflow: hidden;
+      display: grid;
+      padding: 0;
+      text-align: left;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      font: inherit;
+      color: inherit;
+    }
+
+    .gallery-item.is-hidden {
+      display: none;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 40px rgba(29, 78, 216, 0.18);
+    }
+
+    .gallery-item__media {
+      height: 170px;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-color: #f1f5ff;
+    }
+
+    .gallery-item__body {
+      padding: 16px;
+      display: grid;
+      gap: 6px;
+    }
+
+    .gallery-item__body h3 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .gallery-item__body p {
+      margin: 0;
+      font-size: 13px;
+      color: rgba(15, 23, 42, 0.6);
+    }
+
+    .gallery-modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: rgba(11, 30, 91, 0.45);
+      backdrop-filter: blur(6px);
+      z-index: 100;
+    }
+
+    .gallery-modal.is-open {
+      display: flex;
+    }
+
+    .gallery-modal__panel {
+      width: min(960px, 100%);
+      background: #ffffff;
+      border: 1px solid rgba(29, 78, 216, 0.25);
+      border-radius: 28px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+
+    .gallery-modal__close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: rgba(29, 78, 216, 0.9);
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .gallery-modal__title {
+      margin: 0 0 12px;
+      font-family: var(--font-display);
+      font-size: 32px;
+      letter-spacing: 0.04em;
+    }
+
+    .gallery-modal__nav {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .gallery-modal__nav button {
+      border: 1px solid rgba(29, 78, 216, 0.35);
+      background: rgba(29, 78, 216, 0.12);
+      color: var(--purple-700);
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .gallery-modal__nav button:disabled {
+      opacity: 0.4;
+      cursor: default;
+    }
+
+    .gallery-modal__viewer {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+      gap: 20px;
+    }
+
+    .gallery-modal__main {
+      width: 100%;
+      max-height: 420px;
+      object-fit: contain;
+      border-radius: 20px;
+      border: 1px solid rgba(29, 78, 216, 0.2);
+      background: #f1f5ff;
+    }
+
+    .gallery-modal__detail {
+      display: grid;
+      gap: 12px;
+      align-content: start;
+    }
+
+    .gallery-modal__event {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .gallery-modal__meta {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 8px;
+    }
+
+    .gallery-modal__meta li {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 14px;
+      color: rgba(15, 23, 42, 0.85);
+    }
+
+    .gallery-modal__meta span {
+      color: rgba(15, 23, 42, 0.6);
+    }
+
+    .gallery-modal__meta strong {
+      font-weight: 600;
+      text-align: right;
+    }
+
+    .gallery-modal__note {
+      margin: 0;
+      font-size: 14px;
+      color: rgba(15, 23, 42, 0.75);
+    }
+
+    .footer {
+      background: var(--purple-950);
+      padding: 40px 0 60px;
+      color: rgba(255, 255, 255, 0.75);
+      margin-top: 40px;
+    }
+
+    .footer a {
+      color: rgba(255, 255, 255, 0.92);
+    }
+
+    .footer__inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    @media (max-width: 980px) {
+      .header__inner {
+        flex-wrap: wrap;
+      }
+
+      .header__actions {
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+
+      .nav {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px 0 20px;
+        order: 3;
+      }
+
+      .nav.is-open {
+        display: flex;
+      }
+
+      .header__actions .btn--solid {
+        order: 1;
+      }
+
+      .menu-toggle {
+        display: inline-flex;
+        order: 2;
+      }
+
+      .gallery-modal__viewer {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        width: min(100% - 32px, 1200px);
+      }
+
+      .site-header .container {
+        padding: 0 16px;
+      }
+
+      .filter-input,
+      .filter-select {
+        min-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <div class="container header__inner">
+        <a class="logo" href="index.html"><img src="assets/NEWLOGO3-01.png" alt="ONEOFF" /></a>
+        <div class="header__actions">
+          <nav class="nav" id="site-nav" aria-label="주요 메뉴">
+            <a href="index.html#work">친환경 렌탈 서비스</a>
+            <a href="index.html#story">전시 스토리</a>
+            <a href="gallery.html">렌탈 갤러리</a>
+            <a href="index.html#process">렌탈 프로세스</a>
+            <a href="index.html#impact">운영 지표</a>
+          </nav>
+          <a class="btn btn--solid" href="index.html#contact">렌탈 문의</a>
+          <button class="menu-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="gallery-hero">
+        <div class="container gallery-hero__inner">
+          <p class="eyebrow">RENTAL GALLERY</p>
+          <h1>렌탈 갤러리</h1>
+          <p>각 항목별 대표 시안 1건과 실사용 사례 5건을 관리합니다. 이미지를 클릭하면 행사 정보가 표시됩니다.</p>
+          <div class="gallery-filter">
+            <input class="filter-input" type="search" data-filter-search placeholder="행사명/장소/주관/주최/렌탈물품 검색" />
+            <select class="filter-select" data-filter-category>
+              <option value="ALL">전체 카테고리</option>
+              <option value="LED WALL">LED WALL</option>
+              <option value="LED 인포데스크">LED 인포데스크</option>
+              <option value="LED 배너">LED 배너</option>
+              <option value="Custom LED">Custom LED</option>
+            </select>
+            <select class="filter-select" data-filter-type>
+              <option value="ALL">전체 유형</option>
+              <option value="대표시안">대표시안</option>
+              <option value="실사용">실사용</option>
+            </select>
+            <button class="filter-button" type="button" data-filter-clear>필터 초기화</button>
+            <button class="filter-button" type="button" data-csv-load hidden>CSV 불러오기</button>
+            <input type="file" accept=".csv,text/csv" data-csv-input hidden />
+            <span class="filter-hint" data-csv-hint>CSV 파일: gallery-data.csv (로컬은 자동 로드, 실패 시 CSV 불러오기)</span>
+          </div>
+          <div class="gallery-nav">
+            <a href="#gallery-led-wall">LED WALL</a>
+            <a href="#gallery-info-desk">LED 인포데스크</a>
+            <a href="#gallery-led-banner">LED 배너</a>
+            <a href="#gallery-custom-led">Custom LED</a>
+          </div>
+        </div>
+      </section>
+
+      <div class="gallery-empty" data-gallery-empty hidden>조건에 맞는 갤러리 항목이 없습니다.</div>
+
+      <section class="section" id="gallery-led-wall" data-gallery-section data-category="LED WALL">
+        <div class="container">
+          <header class="section__head">
+            <p class="eyebrow">LED WALL</p>
+            <h2>LED WALL 렌탈</h2>
+            <p>메인 무대와 백월에 활용한 LED WALL 렌탈 사례입니다.</p>
+          </header>
+          <div class="gallery-group" data-gallery-group>
+            <div class="gallery-group__head">
+              <h3>대표 시안</h3>
+              </div>
+            <div class="gallery-grid" data-gallery-grid data-grid-type="대표시안"></div>
+          </div>
+          <div class="gallery-group" data-gallery-group>
+            <div class="gallery-group__head">
+              <h3>실사용 사례</h3>
+              <p>행사 현장에 사용된 실사례를 최대 5건 노출합니다.</p>
+            </div>
+            <div class="gallery-grid" data-gallery-grid data-grid-type="실사용"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="gallery-info-desk" data-gallery-section data-category="LED 인포데스크">
+        <div class="container">
+          <header class="section__head">
+            <p class="eyebrow">LED INFO DESK</p>
+            <h2>LED 인포데스크</h2>
+            <p>리셉션과 안내 데스크에 적용한 LED 인포데스크 렌탈 사례입니다.</p>
+          </header>
+          <div class="gallery-group" data-gallery-group>
+            <div class="gallery-group__head">
+              <h3>대표 시안</h3>
+              </div>
+            <div class="gallery-grid" data-gallery-grid data-grid-type="대표시안"></div>
+          </div>
+          <div class="gallery-group" data-gallery-group>
+            <div class="gallery-group__head">
+              <h3>실사용 사례</h3>
+              <p>행사 현장에 사용된 실사례를 최대 5건 노출합니다.</p>
+            </div>
+            <div class="gallery-grid" data-gallery-grid data-grid-type="실사용"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="gallery-led-banner" data-gallery-section data-category="LED 배너">
+        <div class="container">
+          <header class="section__head">
+            <p class="eyebrow">LED BANNER</p>
+            <h2>LED 배너</h2>
+            <p>동선과 로비에 설치한 LED 배너 렌탈 사례입니다.</p>
+          </header>
+          <div class="gallery-group" data-gallery-group>
+            <div class="gallery-group__head">
+              <h3>대표 시안</h3>
+              </div>
+            <div class="gallery-grid" data-gallery-grid data-grid-type="대표시안"></div>
+          </div>
+          <div class="gallery-group" data-gallery-group>
+            <div class="gallery-group__head">
+              <h3>실사용 사례</h3>
+              <p>행사 현장에 사용된 실사례를 최대 5건 노출합니다.</p>
+            </div>
+            <div class="gallery-grid" data-gallery-grid data-grid-type="실사용"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="gallery-custom-led" data-gallery-section data-category="Custom LED">
+        <div class="container">
+          <header class="section__head">
+            <p class="eyebrow">Custom LED</p>
+            <h2>Custom LED 렌탈</h2>
+            <p>공간 포인트를 강조하는 Custom LED 렌탈 사례입니다.</p>
+          </header>
+          <div class="gallery-group" data-gallery-group>
+            <div class="gallery-group__head">
+              <h3>대표 시안</h3>
+              </div>
+            <div class="gallery-grid" data-gallery-grid data-grid-type="대표시안"></div>
+          </div>
+          <div class="gallery-group" data-gallery-group>
+            <div class="gallery-group__head">
+              <h3>실사용 사례</h3>
+              <p>행사 현장에 사용된 실사례를 최대 5건 노출합니다.</p>
+            </div>
+            <div class="gallery-grid" data-gallery-grid data-grid-type="실사용"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer__inner">
+        <div>
+          <div class="logo"><img src="assets/NEWLOGO2.png" alt="ONEOFF" /></div>
+        </div>
+        <div>
+          <p>경기도 김포시 양촌읍 유현리 171-3</p>
+          <p>MON-SAT 09:00~18:00</p>
+        </div>
+        <div>
+          <p>RENT DESK</p>
+          <p><a href="tel:010-5632-5042">010-5632-5042</a></p>
+          <p><a href="mailto:stagemonster@naver.com">stagemonster@naver.com</a></p>
+        </div>
+      </div>
+    </footer>
+
+    <div class="gallery-modal" aria-hidden="true" role="dialog" aria-modal="true">
+      <div class="gallery-modal__panel" role="document">
+        <button class="gallery-modal__close" type="button" aria-label="갤러리 닫기">닫기</button>
+        <h3 class="gallery-modal__title">렌탈 갤러리</h3>
+        <div class="gallery-modal__nav">
+          <button type="button" class="gallery-modal__prev" aria-label="이전 행사">이전</button>
+          <button type="button" class="gallery-modal__next" aria-label="다음 행사">다음</button>
+        </div>
+        <div class="gallery-modal__viewer">
+          <img class="gallery-modal__main" alt="렌탈 갤러리 대표 이미지" />
+          <div class="gallery-modal__detail">
+            <h4 class="gallery-modal__event"></h4>
+            <ul class="gallery-modal__meta">
+              <li><span>일자</span><strong data-field="date"></strong></li>
+              <li><span>장소</span><strong data-field="location"></strong></li>
+              <li><span>주관</span><strong data-field="organizer"></strong></li>
+              <li><span>주최</span><strong data-field="host"></strong></li>
+              <li><span>렌탈물품</span><strong data-field="items"></strong></li>
+            </ul>
+            <p class="gallery-modal__note">이미지를 클릭하면 상세 정보가 표시됩니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type=""text/plain"" id=""gallery-inline-data"">
+category,type,event,date,location,organizer,host,items,image
+LED WALL,대표시안,세계지식포럼 2025 with APEC 경북 (WKF 2025 with APEC Gyeongbuk),2025.09.09~11,더케이호텔 경주,,,LED WALL 4000*2500,assets/led-wall-02.jpg
+LED WALL,실사용,LED WALL 대표 시안,2005-08-15,경기아트센터 대극장,,경기도,LED WALL 4000*2500,assets/led-wall-01.jpg
+LED WALL,실사용,2025 수산양식박람회,2025.11.07~09,aT센터 제 1전시장.,,,LED WALL 4000*2500,assets/led-wall-03.jpg
+LED WALL,실사용,성매매집결지 공간 전환 비전-연풍 리본(Re:born) 선포식,2025.12.17,파주문화회관 대강당,,,LED WALL 4000*2500,assets/led-wall-04.jpg
+LED WALL,실사용,사상 최대 외래관광객 유치 기념 행사,2025.12.23,인천공항2터미널,,,LED WALL 4000*2500,assets/led-wall-05.jpg
+LED WALL,실사용,광복 80주년 광복절 경축식 ,2025.08.15,경기아트센터 대극장,,경기도,LED WALL 4000*2500,assets/led-wall-01.jpg
+LED 인포데스크,대표시안,LED 인포데스크 대표 시안,2025-01-02,코엑스 B홀,운영팀,브랜드 A,LED 인포데스크,assets/led-info-01.png
+LED 인포데스크,실사용,LED 인포데스크,2024-08-22,코엑스 B홀,운영팀,브랜드 A,LED 인포데스크,assets/led-info-02.png
+LED 인포데스크,실사용,LED 인포데스크,2024-09-10,킨텍스 2전시장,기획팀,브랜드 B,LED 인포데스크,assets/led-info-03.png
+LED 인포데스크,실사용,LED 인포데스크,2024-10-19,벡스코,대행사,브랜드 C,LED 인포데스크,assets/led-info-04.png
+LED 인포데스크,실사용,LED 인포데스크,2024-11-08,세텍,행사팀,브랜드 D,LED 인포데스크,assets/led-info-05.png
+LED 인포데스크,실사용,LED 인포데스크,2024-12-02,대구 엑스코,운영팀,브랜드 E,LED 인포데스크,assets/led-info-06.png
+LED 배너,대표시안,LED 배너 대표 시안,2025-01-03,코엑스 C홀,운영팀,브랜드 A,LED 배너,assets/led-banner-01.png
+LED 배너,실사용,LED 배너,2024-07-18,세텍,운영팀,브랜드 A,LED 배너,assets/led-banner-02.png
+LED 배너,실사용,LED 배너,2024-08-05,코엑스 C홀,기획팀,브랜드 B,LED 배너,assets/led-banner-03.png
+LED 배너,실사용,LED 배너,2024-09-29,킨텍스,대행사,브랜드 C,LED 배너,assets/led-banner-04.png
+LED 배너,실사용,LED 배너,2024-10-14,부산 벡스코,행사팀,브랜드 D,LED 배너,assets/led-banner-01.png
+LED 배너,실사용,LED 배너,2024-11-26,서울 양재 AT센터,운영팀,브랜드 E,LED 배너,assets/led-banner-02.png
+Custom LED,대표시안,Custom LED 대표 시안,2025-01-04,대전컨벤션센터,운영팀,브랜드 A,Custom LED,assets/custom-led-01.png
+Custom LED,실사용,Custom LED,2024-06-12,대전컨벤션센터,운영팀,브랜드 A,Custom LED,assets/custom-led-02.png
+Custom LED,실사용,Custom LED,2024-07-03,코엑스 A홀,기획팀,브랜드 B,Custom LED,assets/custom-led-01.png
+Custom LED,실사용,Custom LED,2024-08-17,부산 벡스코,대행사,브랜드 C,Custom LED,assets/custom-led-02.png
+Custom LED,실사용,Custom LED,2024-09-06,킨텍스,행사팀,브랜드 D,Custom LED,assets/custom-led-01.png
+Custom LED,실사용,Custom LED,2024-10-21,세텍,운영팀,브랜드 E,Custom LED,assets/custom-led-02.png
+  </script>
+
+  <script>
+    const toggle = document.querySelector(".menu-toggle");
+    const nav = document.querySelector(".nav");
+
+    toggle.addEventListener("click", () => {
+      const expanded = toggle.getAttribute("aria-expanded") === "true";
+      toggle.setAttribute("aria-expanded", String(!expanded));
+      nav.classList.toggle("is-open");
+    });
+
+    const modal = document.querySelector(".gallery-modal");
+    const modalTitle = document.querySelector(".gallery-modal__title");
+    const modalMain = document.querySelector(".gallery-modal__main");
+    const modalEvent = document.querySelector(".gallery-modal__event");
+    const modalClose = document.querySelector(".gallery-modal__close");
+    const modalPrev = document.querySelector(".gallery-modal__prev");
+    const modalNext = document.querySelector(".gallery-modal__next");
+    const emptyState = document.querySelector("[data-gallery-empty]");
+    const searchInput = document.querySelector("[data-filter-search]");
+    const categorySelect = document.querySelector("[data-filter-category]");
+    const typeSelect = document.querySelector("[data-filter-type]");
+    const clearButton = document.querySelector("[data-filter-clear]");
+    const csvLoadButton = document.querySelector("[data-csv-load]");
+    const csvInput = document.querySelector("[data-csv-input]");
+    const csvHint = document.querySelector("[data-csv-hint]");
+    const inlineDataTag = document.getElementById("gallery-inline-data");
+
+    const fields = {
+      date: document.querySelector('[data-field="date"]'),
+      location: document.querySelector('[data-field="location"]'),
+      organizer: document.querySelector('[data-field="organizer"]'),
+      host: document.querySelector('[data-field="host"]'),
+      items: document.querySelector('[data-field="items"]')
+    };
+
+    const sections = Array.from(document.querySelectorAll("[data-gallery-section]"));
+    const sectionMap = new Map();
+    sections.forEach((section) => {
+      const grids = {};
+      section.querySelectorAll("[data-gallery-grid]").forEach((grid) => {
+        const type = grid.dataset.gridType || "실사용";
+        grids[type] = grid;
+      });
+      sectionMap.set(section.dataset.category, {
+        section,
+        grids,
+        groups: Array.from(section.querySelectorAll("[data-gallery-group]"))
+      });
+    });
+
+    let activeItems = [];
+    let activeIndex = 0;
+
+    const parseCsv = (text) => {
+      const rows = [];
+      let current = "";
+      let inQuotes = false;
+      let row = [];
+
+      const pushCell = () => {
+        row.push(current);
+        current = "";
+      };
+
+      const pushRow = () => {
+        if (row.length > 0) {
+          rows.push(row);
+        }
+        row = [];
+      };
+
+      const normalized = text.replace(/^\uFEFF/, "");
+
+      for (let i = 0; i < normalized.length; i += 1) {
+        const char = normalized[i];
+        if (char === '"') {
+          if (inQuotes && normalized[i + 1] === '"') {
+            current += '"';
+            i += 1;
+          } else {
+            inQuotes = !inQuotes;
+          }
+        } else if (char === "," && !inQuotes) {
+          pushCell();
+        } else if ((char === "\n" || char === "\r") && !inQuotes) {
+          if (char === "\r" && normalized[i + 1] === "\n") {
+            i += 1;
+          }
+          pushCell();
+          pushRow();
+        } else {
+          current += char;
+        }
+      }
+
+      if (current.length || row.length) {
+        pushCell();
+        pushRow();
+      }
+
+      const [headers, ...data] = rows;
+      if (!headers) {
+        return [];
+      }
+
+      return data.map((values) => {
+        const entry = {};
+        headers.forEach((header, index) => {
+          entry[header.trim()] = (values[index] || "").trim();
+        });
+        return entry;
+      });
+    };
+
+    const createItem = (data) => {
+      const item = document.createElement("button");
+      item.type = "button";
+      item.className = "gallery-item";
+      item.dataset.category = data.category;
+      item.dataset.type = data.type;
+      item.dataset.image = data.image;
+      item.dataset.event = data.event;
+      item.dataset.date = data.date;
+      item.dataset.location = data.location;
+      item.dataset.organizer = data.organizer;
+      item.dataset.host = data.host;
+      item.dataset.items = data.items;
+
+      item.innerHTML = `
+        <div class="gallery-item__media" style="background-image:url('${data.image}');"></div>
+        <div class="gallery-item__body">
+          <h3>${data.event}</h3>
+          <p>${data.date} · ${data.location}</p>
+        </div>
+      `;
+
+      item.addEventListener("click", () => openModal(item));
+      item.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          openModal(item);
+        }
+      });
+
+      return item;
+    };
+
+    const showModalItem = (index) => {
+      if (!activeItems.length) {
+        return;
+      }
+
+      activeIndex = (index + activeItems.length) % activeItems.length;
+      const item = activeItems[activeIndex];
+
+      modalTitle.textContent = item.dataset.category || "렌탈 갤러리";
+      modalMain.src = item.dataset.image || "";
+      modalMain.alt = item.dataset.event || "렌탈 갤러리 이미지";
+      modalEvent.textContent = item.dataset.event || "";
+      fields.date.textContent = item.dataset.date || "-";
+      fields.location.textContent = item.dataset.location || "-";
+      fields.organizer.textContent = item.dataset.organizer || "-";
+      fields.host.textContent = item.dataset.host || "-";
+      fields.items.textContent = item.dataset.items || "-";
+
+      const disableNav = activeItems.length < 2;
+      modalPrev.disabled = disableNav;
+      modalNext.disabled = disableNav;
+    };
+
+    const openModal = (item) => {
+      const section = item.closest("[data-gallery-section]");
+      activeItems = section
+        ? Array.from(section.querySelectorAll(".gallery-item:not(.is-hidden)"))
+        : [item];
+      const index = activeItems.indexOf(item);
+      showModalItem(index >= 0 ? index : 0);
+      modal.classList.add("is-open");
+      modal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    };
+
+    const closeModal = () => {
+      modal.classList.remove("is-open");
+      modal.setAttribute("aria-hidden", "true");
+      modalMain.src = "";
+      modalEvent.textContent = "";
+      Object.values(fields).forEach((field) => {
+        field.textContent = "";
+      });
+      document.body.style.overflow = "";
+    };
+
+    const applyQueryPreset = () => {
+      const params = new URLSearchParams(window.location.search);
+      const presetImage = params.get("image");
+      const presetCategory = params.get("category");
+      const presetType = params.get("type");
+      const presetSearch = params.get("search");
+
+      if (presetSearch && searchInput) {
+        searchInput.value = presetSearch;
+      }
+      if (presetCategory && categorySelect) {
+        categorySelect.value = presetCategory;
+      }
+      if (presetType && typeSelect) {
+        typeSelect.value = presetType;
+      }
+
+      if (presetSearch || presetCategory || presetType) {
+        applyFilter();
+      }
+
+      if (presetImage) {
+        const normalized = decodeURIComponent(presetImage);
+        const items = Array.from(document.querySelectorAll(".gallery-item"));
+        const match = items.find((item) => {
+          const image = item.dataset.image || "";
+          return image === normalized || image.endsWith(normalized);
+        });
+        if (match) {
+          if (categorySelect && match.dataset.category) {
+            categorySelect.value = match.dataset.category;
+          }
+          if (typeSelect && match.dataset.type) {
+            typeSelect.value = match.dataset.type;
+          }
+          applyFilter();
+          openModal(match);
+          match.scrollIntoView({ behavior: "smooth", block: "center" });
+          return;
+        }
+      }
+
+      if (presetCategory) {
+        const section = document.querySelector(
+          `[data-gallery-section][data-category="${presetCategory}"]`
+        );
+        if (section) {
+          section.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+    };
+
+    const applyFilter = () => {
+      const query = searchInput.value.trim().toLowerCase();
+      const category = categorySelect.value;
+      const type = typeSelect.value;
+      let visibleCount = 0;
+
+      sections.forEach((section) => {
+        let sectionVisible = 0;
+        section.querySelectorAll(".gallery-item").forEach((item) => {
+          const matchesCategory = category === "ALL" || item.dataset.category === category;
+          const matchesType = type === "ALL" || item.dataset.type === type;
+          const text = [
+            item.dataset.event,
+            item.dataset.location,
+            item.dataset.organizer,
+            item.dataset.host,
+            item.dataset.items
+          ]
+            .filter(Boolean)
+            .join(" ")
+            .toLowerCase();
+          const matchesSearch = !query || text.includes(query);
+          const shouldShow = matchesCategory && matchesType && matchesSearch;
+          item.classList.toggle("is-hidden", !shouldShow);
+          if (shouldShow) {
+            sectionVisible += 1;
+            visibleCount += 1;
+          }
+        });
+
+        section.querySelectorAll("[data-gallery-group]").forEach((group) => {
+          const visibleInGroup = group.querySelectorAll(".gallery-item:not(.is-hidden)").length;
+          group.classList.toggle("is-hidden", visibleInGroup === 0);
+        });
+
+        section.classList.toggle("is-hidden", sectionVisible === 0);
+      });
+
+      if (emptyState) {
+        emptyState.hidden = visibleCount > 0;
+      }
+    };
+
+    const clearGallery = () => {
+      sections.forEach((section) => {
+        section.querySelectorAll("[data-gallery-grid]").forEach((grid) => {
+          grid.innerHTML = "";
+        });
+      });
+    };
+
+    const buildGallery = (rows) => {
+      clearGallery();
+      rows.forEach((row) => {
+        if (!row.category || !row.image) {
+          return;
+        }
+        const target = sectionMap.get(row.category);
+        if (!target) {
+          return;
+        }
+        const type = row.type === "대표시안" ? "대표시안" : "실사용";
+        const grid = target.grids[type] || target.grids["실사용"];
+        if (!grid) {
+          return;
+        }
+        const item = createItem({
+          category: row.category,
+          type,
+          event: row.event || "",
+          date: row.date || "",
+          location: row.location || "",
+          organizer: row.organizer || "",
+          host: row.host || "",
+          items: row.items || "",
+          image: row.image || ""
+        });
+        grid.appendChild(item);
+      });
+      applyFilter();
+    };
+
+    const getInlineCsv = () => (inlineDataTag ? inlineDataTag.textContent.trim() : "");
+
+    const loadCsv = async () => {
+      const inlineCsv = getInlineCsv();
+      let fetched = false;
+      try {
+        const response = await fetch("gallery-data.csv", { cache: "no-store" });
+        if (response.ok) {
+          fetched = true;
+          return { text: await response.text(), source: "file" };
+        }
+      } catch (error) {
+        console.warn("CSV fetch failed, using inline data.", error);
+      }
+      if (inlineCsv) {
+        return { text: inlineCsv, source: fetched ? "file" : "inline" };
+      }
+      throw new Error("CSV load failed");
+    };
+
+    const loadData = async () => {
+      const result = await loadCsv();
+      const rows = parseCsv(result.text);
+      buildGallery(rows);
+      applyQueryPreset();
+      if (result.source === "inline" && location.protocol === "file:") {
+        if (csvLoadButton) {
+          csvLoadButton.hidden = false;
+        }
+        if (csvHint) {
+          csvHint.textContent = "CSV 자동 로드 실패: gallery-data.csv를 직접 선택해 주세요.";
+        }
+      } else if (csvLoadButton) {
+        csvLoadButton.hidden = true;
+      }
+    };
+
+    const enableLocalCsvLoad = () => {
+      if (!csvLoadButton || !csvInput) {
+        return;
+      }
+      csvLoadButton.addEventListener("click", () => csvInput.click());
+      csvInput.addEventListener("change", () => {
+        const file = csvInput.files && csvInput.files[0];
+        if (!file) {
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = () => {
+          const rows = parseCsv(String(reader.result || ""));
+          buildGallery(rows);
+        };
+        reader.readAsText(file, "utf-8");
+      });
+    };
+
+    loadData().catch(() => {
+      if (emptyState) {
+        emptyState.hidden = false;
+        emptyState.textContent = "갤러리 데이터를 불러오지 못했습니다. gallery-data.csv 경로 또는 내장 데이터를 확인해 주세요.";
+      }
+    });
+
+    searchInput.addEventListener("input", applyFilter);
+    categorySelect.addEventListener("change", applyFilter);
+    typeSelect.addEventListener("change", applyFilter);
+    clearButton.addEventListener("click", () => {
+      searchInput.value = "";
+      categorySelect.value = "ALL";
+      typeSelect.value = "ALL";
+      applyFilter();
+    });
+
+    enableLocalCsvLoad();
+
+    modalPrev.addEventListener("click", () => showModalItem(activeIndex - 1));
+    modalNext.addEventListener("click", () => showModalItem(activeIndex + 1));
+    modalClose.addEventListener("click", closeModal);
+
+    modal.addEventListener("click", (event) => {
+      if (event.target === modal) {
+        closeModal();
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && modal.classList.contains("is-open")) {
+        closeModal();
+      }
+      if (!modal.classList.contains("is-open")) {
+        return;
+      }
+      if (event.key === "ArrowLeft") {
+        showModalItem(activeIndex - 1);
+      }
+      if (event.key === "ArrowRight") {
+        showModalItem(activeIndex + 1);
+      }
+    });
+  </script>
+</body>
+</html>
+
+
+
+
+
