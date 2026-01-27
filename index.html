@@ -142,6 +142,7 @@
       overflow: hidden;
       --hero-image-1: url("assets/f2.png");
       --hero-image-2: url("assets/f3.png");
+      --hero-image-3: url("assets/1.jpg");
       color: #fff;
     }
 
@@ -168,7 +169,19 @@
         linear-gradient(120deg, rgba(11, 30, 91, 0.92), rgba(11, 30, 91, 0.6)),
         var(--hero-image-2);
       opacity: 0;
-      animation: hero-fade 12s ease-in-out infinite;
+      animation: hero-fade-2 18s ease-in-out infinite;
+    }
+
+    .hero__bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(120deg, rgba(11, 30, 91, 0.92), rgba(11, 30, 91, 0.6)),
+        var(--hero-image-3);
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      animation: hero-fade-3 18s ease-in-out infinite;
     }
 
     .hero__inner {
@@ -1568,14 +1581,26 @@
       }
     }
 
-    @keyframes hero-fade {
-      0%, 45% {
+    @keyframes hero-fade-2 {
+      0%, 20% {
         opacity: 0;
       }
-      55%, 95% {
+      30%, 55% {
         opacity: 1;
       }
-      100% {
+      65%, 100% {
+        opacity: 0;
+      }
+    }
+
+    @keyframes hero-fade-3 {
+      0%, 50% {
+        opacity: 0;
+      }
+      60%, 85% {
+        opacity: 1;
+      }
+      95%, 100% {
         opacity: 0;
       }
     }
@@ -1651,6 +1676,7 @@
 
     <main>
       <section class="hero" id="intro">
+        <div class="hero__bg" aria-hidden="true"></div>
         <div class="container hero__inner">
           <span class="eyebrow">Sustainable Exhibition</span>
           <h1>폐기물 0%에 도전하는<br />지속 가능한 전시</h1>
