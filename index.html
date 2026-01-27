@@ -523,15 +523,15 @@
 
     .oneoff-esg .esg-hero {
       display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: clamp(18px, 3vw, 28px);
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+      gap: clamp(20px, 4vw, 36px);
       align-items: start;
-      justify-items: center;
-      text-align: center;
+      justify-items: stretch;
+      text-align: left;
     }
 
     .oneoff-esg .esg-hero__text {
-      max-width: 520px;
+      max-width: 560px;
     }
 
     .oneoff-esg .esg-kicker {
@@ -539,6 +539,7 @@
       gap: 10px;
       flex-wrap: wrap;
       margin: 0 0 12px;
+      justify-content: flex-start;
     }
 
     .oneoff-esg .pill {
@@ -588,7 +589,7 @@
       gap: 12px;
       flex-wrap: wrap;
       margin: 0 0 16px;
-      justify-content: center;
+      justify-content: flex-start;
     }
 
     .oneoff-esg .btn {
@@ -643,7 +644,8 @@
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 10px;
-      margin: 12px 0 0;
+      margin: 18px 0 0;
+      width: 100%;
     }
 
     .oneoff-esg .esg-quick__item {
@@ -655,6 +657,7 @@
       font-weight: 700;
       letter-spacing: 0.2px;
       box-shadow: var(--shadow);
+      text-align: center;
     }
 
     .oneoff-esg .esg-bullets li {
@@ -681,7 +684,13 @@
       box-shadow: 0 0 0 4px rgba(29, 78, 216, 0.14);
     }
 
+    .oneoff-esg .esg-hero__stat {
+      display: flex;
+      justify-content: flex-end;
+    }
+
     .oneoff-esg .stat-card {
+      width: min(420px, 100%);
       background: linear-gradient(180deg, #ffffff 0%, #f1f6ff 100%);
       border: 1px solid var(--line);
       border-radius: 22px;
@@ -1017,6 +1026,10 @@
         grid-template-columns: 1fr;
       }
 
+      .oneoff-esg .esg-hero__stat {
+        justify-content: flex-start;
+      }
+
       .oneoff-esg .stat-card {
         position: relative;
         top: 0;
@@ -1296,12 +1309,6 @@
                 <a class="btn btn--primary" href="#contact">상담 요청</a>
                 <a class="btn btn--ghost" href="#work">적용사례 보기</a>
               </div>
-
-              <div class="esg-quick" aria-label="ESG 핵심 요약">
-                <div class="esg-quick__item">폐기물 감소</div>
-                <div class="esg-quick__item">재제작 감소</div>
-                <div class="esg-quick__item">재사용 증가</div>
-              </div>
             </div>
 
             <div class="esg-hero__stat">
@@ -1324,6 +1331,12 @@
               </div>
             </div>
           </header>
+
+          <div class="esg-quick" aria-label="ESG 핵심 요약">
+            <div class="esg-quick__item">폐기물 감소</div>
+            <div class="esg-quick__item">재제작 감소</div>
+            <div class="esg-quick__item">재사용 증가</div>
+          </div>
 
           <!-- 2 카드 요약 -->
           <section class="esg-cards" aria-label="ESG 요약 카드">
