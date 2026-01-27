@@ -1091,9 +1091,10 @@
     }
 
     .oneoff-esg .esg-wrap {
-      max-width: 1400px;
+      width: calc(100% - 192px);
+      max-width: none;
       margin: 0 auto;
-      padding: 0 22px;
+      padding: 0;
     }
 
     .oneoff-esg .esgx-hero {
@@ -1481,6 +1482,10 @@
     }
 
     @media (max-width: 980px) {
+      .oneoff-esg .esg-wrap {
+        width: calc(100% - 64px);
+      }
+
       .oneoff-esg .esgx-hero-grid {
         grid-template-columns: 1fr;
         padding: 36px 24px 30px;
@@ -1505,6 +1510,10 @@
     }
 
     @media (max-width: 520px) {
+      .oneoff-esg .esg-wrap {
+        width: calc(100% - 48px);
+      }
+
       .oneoff-esg .esgx-title {
         font-size: 36px;
       }
