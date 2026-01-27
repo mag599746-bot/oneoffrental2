@@ -530,6 +530,10 @@
       text-align: center;
     }
 
+    .oneoff-esg .esg-hero__text {
+      max-width: 520px;
+    }
+
     .oneoff-esg .esg-kicker {
       display: flex;
       gap: 10px;
@@ -633,6 +637,24 @@
       color: var(--esg-muted);
       font-size: 14px;
       justify-items: center;
+    }
+
+    .oneoff-esg .esg-quick {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin: 12px 0 0;
+    }
+
+    .oneoff-esg .esg-quick__item {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 10px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      box-shadow: var(--shadow);
     }
 
     .oneoff-esg .esg-bullets li {
@@ -1015,6 +1037,10 @@
       .oneoff-esg table {
         min-width: 860px;
       }
+
+      .oneoff-esg .esg-quick {
+        grid-template-columns: 1fr;
+      }
     }
 
     .footer {
@@ -1260,21 +1286,22 @@
                 <span class="pill pill--purple">ONEOFF LED RENTAL</span>
               </p>
               <h2 class="esg-title">
-                출력물 없는 전시는 <span class="hl hl--yellow">폐기물이 없는 전시</span>입니다.
+                출력물 없이, <span class="hl hl--yellow">폐기물도 줄입니다.</span>
               </h2>
               <p class="esg-subtitle">
-                LED 전시는 <b>전시 구조를 단순화</b>하고 <b>폐기물</b>을 줄입니다.
+                LED 전환으로 전시 구조는 가볍게, 운영은 더 효율적으로.
               </p>
 
               <div class="esg-cta">
-                <a class="btn btn--primary" href="#esg-table">정리표 보기</a>
-                <a class="btn btn--ghost" href="#contact">상담 요청</a>
+                <a class="btn btn--primary" href="#contact">상담 요청</a>
+                <a class="btn btn--ghost" href="#work">적용사례 보기</a>
               </div>
 
-              <ul class="esg-bullets">
-                <li><span class="dot dot--yellow"></span> 출력물·목공 사용 최소화</li>
-                <li><span class="dot dot--purple"></span> 콘텐츠 교체 중심 운영</li>
-              </ul>
+              <div class="esg-quick" aria-label="ESG 핵심 요약">
+                <div class="esg-quick__item">폐기물 감소</div>
+                <div class="esg-quick__item">재제작 감소</div>
+                <div class="esg-quick__item">재사용 증가</div>
+              </div>
             </div>
 
             <div class="esg-hero__stat">
@@ -1323,50 +1350,7 @@
             </article>
           </section>
 
-          <!-- 근거 기반 표 -->
-          <section class="esg-table" id="esg-table" aria-label="근거 기반 정리표">
-            <div class="table-head">
-              <h3>LED 전시 전환 핵심 효과</h3>
-              <p>출력물 대체로 기대되는 환경 효과를 간단히 정리했습니다.</p>
-            </div>
-
-            <div class="table-scroll" role="region" aria-label="표 스크롤 영역" tabindex="0">
-              <table>
-                <thead>
-                  <tr>
-                    <th style="width: 72px;">구분</th>
-                    <th>효과</th>
-                    <th>근거 요약</th>
-                    <th>전시 적용</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="idx">①</td>
-                    <td><b>폐기물 감소</b><br /><span class="muted">출력물·현수막 대체</span></td>
-                    <td>단기 사용 출력물은 폐기물로 이어질 수 있음</td>
-                    <td>LED로 대체해 폐기물 발생을 줄임</td>
-                  </tr>
-                  <tr>
-                    <td class="idx">②</td>
-                    <td><b>재제작 감소</b><br /><span class="muted">콘텐츠 디지털 교체</span></td>
-                    <td>디지털 전환은 반복 제작을 줄임</td>
-                    <td>행사마다 출력 없이 콘텐츠만 교체</td>
-                  </tr>
-                  <tr>
-                    <td class="idx">③</td>
-                    <td><b>반복 사용 구조</b><br /><span class="muted">렌탈·모듈 재사용</span></td>
-                    <td>모듈 재사용은 폐기물 감축에 효과적</td>
-                    <td>동일 장비를 여러 행사에 활용</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <div class="esg-note">
-              <p>출력물을 줄이면 폐기물이 줄어듭니다. LED 전환은 전시 구조를 가볍게 만듭니다.</p>
-            </div>
-          </section>
+          <!-- (표 섹션 제거: 간결하게 구성) -->
         </div>
       </section>
 
