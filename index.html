@@ -223,6 +223,10 @@
       font-size: 14px;
     }
 
+    .hero__note--wide {
+      letter-spacing: 0.04em;
+    }
+
     .hero .hero__note {
       color: rgba(255, 255, 255, 0.7);
     }
@@ -1105,13 +1109,16 @@
     }
 
     .oneoff-esg .esgx-hero-shell {
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.70) 0%, rgba(255, 255, 255, 0.85) 100%);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.88) 0%, rgba(255, 255, 255, 0.82) 100%),
+        url("assets/fffff.png") center / cover no-repeat;
       border: 1px solid rgba(10, 20, 40, 0.06);
       border-radius: calc(var(--esg-radius) + 8px);
       box-shadow: var(--esg-shadow);
       overflow: hidden;
       position: relative;
       width: 100%;
+      min-height: 100vh;
     }
 
     .oneoff-esg .esgx-hero-shell::before {
@@ -1258,15 +1265,7 @@
     }
 
     .oneoff-esg .esgx-hero-visual {
-      display: flex;
-      justify-content: flex-end;
-    }
-
-    .oneoff-esg .esgx-hero-image {
-      width: min(720px, 100%);
-      height: auto;
-      display: block;
-      filter: drop-shadow(0 24px 60px rgba(10, 20, 40, 0.22));
+      display: none;
     }
 
     .oneoff-esg .esgx-statement {
@@ -1665,7 +1664,7 @@
               <div class="stat-label">전문 설치팀</div>
             </div>
           </div>
-          <p class="hero__note">ONEOFF는 LED 인포데스크, LED 배너, Custom LED를 합리적으로 렌탈하고 배송/설치/회수까지 원스톱 제공하는 렌탈 전문 업체입니다.</p>
+          <p class="hero__note hero__note--wide">ONEOFF는 LED 인포데스크, LED 배너, Custom LED를 합리적으로 렌탈하고 배송/설치/회수까지 원스톱 제공하는 렌탈 전문 업체입니다.</p>
         </div>
       </section>
 
@@ -1781,9 +1780,7 @@
                   </div>
                 </div>
 
-                <div class="esgx-hero-visual">
-                  <img class="esgx-hero-image" src="assets/fffff.png" alt="LED 화면 이미지" />
-                </div>
+                <div class="esgx-hero-visual" aria-hidden="true"></div>
               </div>
             </div>
           </section>
