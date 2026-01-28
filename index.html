@@ -292,26 +292,32 @@
       background: rgba(255, 255, 255, 0.2);
     }
 
-    .hero__rolling {
+    .hero__headline {
+      position: relative;
       width: min(100%, 980px);
       margin: 0;
-      overflow: hidden;
       white-space: nowrap;
-      font-size: clamp(28px, 3.6vw, 46px);
-      line-height: 1.2;
+      font-size: clamp(30px, 4vw, 56px);
+      line-height: 1.15;
       letter-spacing: -0.02em;
+      height: 1.2em;
     }
 
-    .hero__rolling-track {
-      display: inline-flex;
+    .hero__headline span {
+      position: absolute;
+      inset: 0;
+      display: flex;
       align-items: center;
-      gap: 48px;
-      padding-left: 100%;
-      animation: hero-roll 20s linear infinite;
+      justify-content: center;
+      opacity: 0;
     }
 
-    .hero__rolling-track span {
-      flex: 0 0 auto;
+    .hero__headline .headline--one {
+      animation: hero-switch-1 6s ease-in-out infinite;
+    }
+
+    .hero__headline .headline--two {
+      animation: hero-switch-2 6s ease-in-out infinite;
     }
 
     .section {
@@ -1182,27 +1188,21 @@
 
     .oneoff-esg .esgx-title {
       margin: 0;
-      font-size: clamp(45px, 4.9vw, 65px);
+      font-size: clamp(30px, 4.6vw, 60px);
       line-height: 1.08;
       letter-spacing: -1.2px;
       max-width: 560px;
-      text-wrap: balance;
       white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
 
     .oneoff-esg .esgx-lead {
       margin: 18px 0 26px;
-      font-size: 21px;
+      font-size: clamp(16px, 2.6vw, 24px);
       line-height: 1.65;
       color: var(--esg-muted);
-      max-width: 580px;
+      max-width: 100%;
       font-weight: 500;
-      text-wrap: balance;
       white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
 
     .oneoff-esg .esgx-btn-row {
@@ -1562,14 +1562,14 @@
       }
 
       .oneoff-esg .esgx-title {
-        font-size: 41px;
+        font-size: 34px;
       }
 
       .oneoff-esg .esgx-btn {
         width: 100%;
       }
 
-      .hero__rolling {
+      .hero__headline {
         font-size: 28px;
       }
 
@@ -1635,12 +1635,21 @@
       }
     }
 
-    @keyframes hero-roll {
-      0% {
-        transform: translateX(0);
+    @keyframes hero-switch-1 {
+      0%, 45% {
+        opacity: 1;
       }
-      100% {
-        transform: translateX(-100%);
+      55%, 100% {
+        opacity: 0;
+      }
+    }
+
+    @keyframes hero-switch-2 {
+      0%, 45% {
+        opacity: 0;
+      }
+      55%, 100% {
+        opacity: 1;
       }
     }
 
@@ -1718,12 +1727,9 @@
         <div class="hero__bg" aria-hidden="true"></div>
         <div class="container hero__inner">
           <span class="eyebrow">Sustainable Exhibition</span>
-          <h1 class="hero__rolling" aria-label="폐기물 0%에 도전하는 지속 가능한 전시">
-            <span class="hero__rolling-track">
-              <span>폐기물 0%에 도전하는 지속 가능한 전시</span>
-              <span>폐기물 0%에 도전하는 지속 가능한 전시</span>
-              <span>폐기물 0%에 도전하는 지속 가능한 전시</span>
-            </span>
+          <h1 class="hero__headline" aria-label="폐기물 0%에 도전하는 지속 가능한 전시 / 출력물 대신 LED, 운영은 더 스마트하게">
+            <span class="headline--one">폐기물 0%에 도전하는 지속 가능한 전시</span>
+            <span class="headline--two">출력물 대신 LED, 운영은 더 스마트하게</span>
           </h1>
           <p class="lead">출력물 대신 LED로, 구조는 재사용합니다.</p>
           <div class="hero__actions">
