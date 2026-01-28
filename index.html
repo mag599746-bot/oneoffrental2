@@ -292,27 +292,25 @@
       background: rgba(255, 255, 255, 0.2);
     }
 
-    .ticker {
+    .hero__rolling {
+      width: min(100%, 980px);
+      margin: 0;
       overflow: hidden;
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      background: var(--panel);
-      padding: 12px 0;
+      white-space: nowrap;
+      font-size: clamp(28px, 3.6vw, 46px);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
     }
 
-    .ticker__track {
+    .hero__rolling-track {
       display: inline-flex;
       align-items: center;
       gap: 48px;
-      white-space: nowrap;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      color: var(--accent);
-      animation: ticker-scroll 22s linear infinite;
       padding-left: 100%;
+      animation: hero-roll 20s linear infinite;
     }
 
-    .ticker__track span {
+    .hero__rolling-track span {
       flex: 0 0 auto;
     }
 
@@ -1189,6 +1187,9 @@
       letter-spacing: -1.2px;
       max-width: 560px;
       text-wrap: balance;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .oneoff-esg .esgx-lead {
@@ -1199,6 +1200,9 @@
       max-width: 580px;
       font-weight: 500;
       text-wrap: balance;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .oneoff-esg .esgx-btn-row {
@@ -1565,9 +1569,8 @@
         width: 100%;
       }
 
-      .ticker__track {
-        font-size: 14px;
-        letter-spacing: 0.08em;
+      .hero__rolling {
+        font-size: 28px;
       }
 
       .oneoff-esg .esgx-btn-row {
@@ -1632,7 +1635,7 @@
       }
     }
 
-    @keyframes ticker-scroll {
+    @keyframes hero-roll {
       0% {
         transform: translateX(0);
       }
@@ -1715,7 +1718,13 @@
         <div class="hero__bg" aria-hidden="true"></div>
         <div class="container hero__inner">
           <span class="eyebrow">Sustainable Exhibition</span>
-          <h1>폐기물 0%에 도전하는<br />지속 가능한 전시</h1>
+          <h1 class="hero__rolling" aria-label="폐기물 0%에 도전하는 지속 가능한 전시">
+            <span class="hero__rolling-track">
+              <span>폐기물 0%에 도전하는 지속 가능한 전시</span>
+              <span>폐기물 0%에 도전하는 지속 가능한 전시</span>
+              <span>폐기물 0%에 도전하는 지속 가능한 전시</span>
+            </span>
+          </h1>
           <p class="lead">출력물 대신 LED로, 구조는 재사용합니다.</p>
           <div class="hero__actions">
             <a class="btn btn--accent" href="#contact">렌탈 문의</a>
@@ -1736,17 +1745,6 @@
             </div>
           </div>
           <p class="hero__note hero__note--wide">ONEOFF는 LED 인포데스크, LED 배너, Custom LED를 합리적으로 렌탈하고 배송/설치/회수까지 원스톱 제공하는 렌탈 전문 업체입니다.</p>
-        </div>
-      </section>
-
-      <section class="ticker" aria-label="메인 롤링 문구">
-        <div class="ticker__track">
-          <span>출력물 대신 LED, 운영은 더 스마트하게</span>
-          <span>출력물 대신 LED, 운영은 더 스마트하게</span>
-          <span>출력물 대신 LED, 운영은 더 스마트하게</span>
-          <span>출력물 대신 LED, 운영은 더 스마트하게</span>
-          <span>출력물 대신 LED, 운영은 더 스마트하게</span>
-          <span>출력물 대신 LED, 운영은 더 스마트하게</span>
         </div>
       </section>
 
