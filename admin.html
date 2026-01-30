@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ONEOFF | Admin</title>
+  <meta name="description" content="ONEOFF 견적 문의 관리자 페이지" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f2f6ff;
+      --panel: #ffffff;
+      --panel-strong: #e8f0ff;
+      --border: #cfe0ff;
+      --accent: #1d4ed8;
+      --deep-blue: #0b1e5b;
+      --deep-blue-2: #14318a;
+      --text: rgba(15, 23, 42, 0.96);
+      --muted: rgba(15, 23, 42, 0.7);
+      --shadow-soft: 0 18px 36px rgba(15, 23, 42, 0.14);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Noto Sans KR", "Apple SD Gothic Neo", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(900px 420px at 20% -10%, rgba(29, 78, 216, 0.14), transparent 60%),
+        radial-gradient(700px 360px at 90% 10%, rgba(59, 130, 246, 0.12), transparent 60%),
+        linear-gradient(180deg, #eef4ff 0%, #ffffff 100%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1100px, calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(11, 30, 91, 0.98);
+      border-bottom: 2px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(12px);
+      color: #fff;
+    }
+
+    .topbar__inner {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 0;
+      flex-wrap: wrap;
+    }
+
+    .logo img {
+      width: 150px;
+      height: auto;
+    }
+
+    .nav {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-left: auto;
+    }
+
+    .nav a {
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.75);
+      border: 1px solid transparent;
+      transition: all 0.2s ease;
+    }
+
+    .nav a:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 14px;
+      border: 1px solid transparent;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
+    }
+
+    .btn--accent {
+      background: var(--accent);
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.5);
+      box-shadow: 0 12px 24px rgba(29, 78, 216, 0.25);
+    }
+
+    .btn--ghost {
+      color: var(--accent);
+      border-color: rgba(29, 78, 216, 0.35);
+      background: #fff;
+      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.06);
+    }
+
+    .section {
+      padding: 50px 0 80px;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .panel h1 {
+      margin: 0 0 10px;
+      font-size: clamp(24px, 3vw, 36px);
+    }
+
+    .panel p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .admin-layout {
+      display: grid;
+      gap: 18px;
+      grid-template-columns: minmax(0, 0.45fr) minmax(0, 0.55fr);
+      align-items: start;
+      margin-top: 24px;
+    }
+
+    .login-form {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .field {
+      display: grid;
+      gap: 6px;
+    }
+
+    .field label {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .field input {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: #fff;
+      font-size: 14px;
+      font-family: inherit;
+    }
+
+    .login-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .status {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .board {
+      display: grid;
+      gap: 12px;
+    }
+
+    .board-item {
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 16px;
+      background: #fff;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+      display: grid;
+      gap: 6px;
+    }
+
+    .board-item strong {
+      font-size: 16px;
+    }
+
+    .board-item .meta {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .board-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .empty {
+      padding: 18px;
+      border: 1px dashed var(--border);
+      border-radius: 12px;
+      color: var(--muted);
+      background: #f8fbff;
+    }
+
+    @media (max-width: 960px) {
+      .admin-layout {
+        grid-template-columns: 1fr;
+      }
+      .nav {
+        margin-left: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar__inner">
+      <a class="logo" href="index.html">
+        <img src="assets/logo.png" alt="ONEOFF" />
+      </a>
+      <nav class="nav" aria-label="주요 메뉴">
+        <a href="index.html#home">메인</a>
+        <a href="index.html#process">렌탈 프로세스</a>
+        <a href="index.html#products">추천 제품</a>
+        <a href="index.html#quote">견적 문의</a>
+      </nav>
+      <a class="btn btn--accent" href="index.html#quote">견적 문의</a>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="container">
+      <div class="panel">
+        <h1>관리자 페이지</h1>
+        <p>관리자 로그인 후 견적 문의 게시판을 확인할 수 있습니다.</p>
+      </div>
+
+      <div class="admin-layout">
+        <div class="panel">
+          <h2 style="margin:0 0 8px; font-size:20px;">로그인</h2>
+          <p>관리자 비밀번호를 입력하세요.</p>
+          <form class="login-form" id="loginForm" autocomplete="off">
+            <div class="field">
+              <label for="adminPassword">관리자 비밀번호</label>
+              <input id="adminPassword" name="password" type="password" required />
+            </div>
+            <div class="login-actions">
+              <button class="btn btn--accent" type="submit">로그인</button>
+              <button class="btn btn--ghost" type="button" id="logoutBtn">로그아웃</button>
+              <button class="btn btn--ghost" type="button" id="refreshBtn">새로고침</button>
+            </div>
+            <div class="status" id="loginStatus">로그인이 필요합니다.</div>
+          </form>
+        </div>
+
+        <div class="panel">
+          <div style="display:flex; align-items:center; justify-content: space-between; gap: 12px; flex-wrap: wrap;">
+            <h2 style="margin:0; font-size:20px;">견적 문의 게시판</h2>
+            <span class="status" id="boardStatus">로그인 후 목록을 확인할 수 있습니다.</span>
+          </div>
+          <div class="board" id="boardList" style="margin-top:16px;"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const API_BASE_URL = "https://oneoffrental2.onrender.com";
+    const ADMIN_TOKEN_KEY = "oneoff_admin_token";
+
+    const loginForm = document.getElementById("loginForm");
+    const loginStatus = document.getElementById("loginStatus");
+    const boardStatus = document.getElementById("boardStatus");
+    const boardList = document.getElementById("boardList");
+    const logoutBtn = document.getElementById("logoutBtn");
+    const refreshBtn = document.getElementById("refreshBtn");
+
+    function getToken() {
+      return localStorage.getItem(ADMIN_TOKEN_KEY);
+    }
+
+    function setToken(token) {
+      if (token) {
+        localStorage.setItem(ADMIN_TOKEN_KEY, token);
+      } else {
+        localStorage.removeItem(ADMIN_TOKEN_KEY);
+      }
+    }
+
+    function setStatus(message) {
+      loginStatus.textContent = message;
+      boardStatus.textContent = message;
+    }
+
+    async function fetchQuotes() {
+      const token = getToken();
+      if (!token) {
+        return [];
+      }
+      const response = await fetch(`${API_BASE_URL}/api/admin/quotes`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (!response.ok) {
+        throw new Error("관리자 인증이 만료되었습니다.");
+      }
+      return response.json();
+    }
+
+    function renderBoard(items) {
+      boardList.innerHTML = "";
+      if (!items.length) {
+        boardList.innerHTML = '<div class="empty">접수된 요청이 없습니다.</div>';
+        return;
+      }
+      items.forEach((item) => {
+        const wrapper = document.createElement("div");
+        wrapper.className = "board-item";
+        wrapper.innerHTML = `
+          <strong>${item.eventName}</strong>
+          <div class="meta">행사일: ${item.eventDate} · 장소: ${item.eventPlace}</div>
+          <div class="meta">장비: ${item.ledType || "-"} (${item.ledSize || "미기재"})</div>
+          <div class="meta">담당자: ${item.contactName} · ${item.contactPhone}</div>
+          <div class="meta">이메일: ${item.contactEmail}</div>
+          <div class="meta">요청사항: ${item.extra || "없음"}</div>
+          <div class="meta">접수시간: ${item.createdAt || "-"}</div>
+        `;
+        boardList.appendChild(wrapper);
+      });
+    }
+
+    async function refreshBoard() {
+      const token = getToken();
+      if (!token) {
+        setStatus("로그인이 필요합니다.");
+        renderBoard([]);
+        return;
+      }
+      try {
+        setStatus("불러오는 중...");
+        const items = await fetchQuotes();
+        renderBoard(items);
+        setStatus(`총 ${items.length}건이 있습니다.`);
+      } catch (error) {
+        setToken("");
+        renderBoard([]);
+        setStatus(error.message || "불러오기 실패");
+      }
+    }
+
+    loginForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const password = loginForm.password.value;
+      if (!password) {
+        return;
+      }
+      try {
+        setStatus("로그인 중...");
+        const response = await fetch(`${API_BASE_URL}/api/admin/login`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ password }),
+        });
+        if (!response.ok) {
+          throw new Error("비밀번호가 일치하지 않습니다.");
+        }
+        const data = await response.json();
+        setToken(data.token);
+        loginForm.reset();
+        setStatus("로그인 성공");
+        await refreshBoard();
+      } catch (error) {
+        setStatus(error.message || "로그인 실패");
+      }
+    });
+
+    logoutBtn.addEventListener("click", () => {
+      setToken("");
+      setStatus("로그아웃 되었습니다.");
+      renderBoard([]);
+    });
+
+    refreshBtn.addEventListener("click", () => {
+      refreshBoard();
+    });
+
+    if (getToken()) {
+      refreshBoard();
+    }
+  </script>
+</body>
+</html>
