@@ -203,7 +203,7 @@
       gap: 12px;
       flex-wrap: wrap;
       width: 100%;
-      justify-content: center;
+      justify-content: flex-end;
       margin-top: 16px;
       margin-bottom: 0;
     }
@@ -385,12 +385,16 @@
       background: var(--panel);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 16px;
+      padding: 20px 18px;
       display: grid;
-      gap: 8px;
+      gap: 12px;
       box-shadow: var(--shadow-soft);
       position: relative;
       z-index: 1;
+      min-height: 320px;
+      justify-items: center;
+      text-align: center;
+      align-content: start;
     }
 
     .step__icon {
@@ -405,6 +409,7 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      justify-content: center;
     }
 
     .step__title {
@@ -412,6 +417,7 @@
       align-items: baseline;
       gap: 8px;
       flex-wrap: wrap;
+      justify-content: center;
     }
 
     .step__title span {
@@ -460,6 +466,11 @@
       font-size: 12px;
     }
 
+    .step .lead {
+      line-height: 4;
+      font-size: 18px;
+    }
+
     .products {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -476,7 +487,8 @@
     }
 
     .product-card__media {
-      height: 200px;
+      height: auto;
+      aspect-ratio: 16 / 20;
       background: linear-gradient(120deg, rgba(29, 78, 216, 0.18), rgba(255, 255, 255, 0.75));
     }
 
@@ -840,7 +852,7 @@
                 <strong>배송/설치</strong>
               </div>
             </div>
-            <p class="lead">일정에 맞춰 장비를 납품하고 설치합니다.</p>
+            <p class="lead">일정에 맞춰 장비를 납품하고<br />설치합니다.</p>
           </div>
           <div class="step">
             <div class="step__head">
@@ -850,7 +862,7 @@
                 <strong>운영/회수</strong>
               </div>
             </div>
-            <p class="lead">행사 운영 지원 후 장비를 회수합니다.</p>
+            <p class="lead">행사 운영 지원 후 장비를<br />회수합니다.</p>
           </div>
         </div>
       </div>
